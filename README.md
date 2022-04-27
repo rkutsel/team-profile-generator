@@ -6,7 +6,9 @@
 
 ## Description
 
-**Node.js** command-line **HTML** page generator that relies on **[enquirer](https://www.npmjs.com/package/inquirer)** to interact with a user and plugs that into the generated HTML page with some basic user info that includes a Manager, Engineer and an Intern roles. That's just a simple example that can be further extended into something more concrete. The classes that were already defined for `Employee` as a parent and its children: `Manager`, `Engineer`, `Intern`
+**Node.js** command-line **HTML** page generator that relies on **[enquirer](https://www.npmjs.com/package/inquirer)** to interact with a user and plugs that into the generated HTML page with some basic user info that includes a Manager, Engineer and an Intern roles. That's just a simple example that can be further extended into something more concrete. The classes that were already defined for `Employee` as a parent and its children: `Manager`, `Engineer`, `Intern`.
+
+I ended up using **[SPECTRE](https://picturepan2.github.io/spectre/index.html)** CSS framework that has what I thought were pretty cool panels I used for my cards. And it was another chance to learn something I've never used before.
 
 ## Installation Instructions
 
@@ -17,9 +19,9 @@ Once the above is confirmed, you can go ahead and clone the repo and install the
 ```bash
 >npm i
 
-added 57 packages, and audited 58 packages in 1s
+added 306 packages, and audited 307 packages in 7s
 
-17 packages are looking for funding
+37 packages are looking for funding
   run `npm fund` for details
 
 found 0 vulnerabilities
@@ -27,7 +29,57 @@ found 0 vulnerabilities
 
 ## Usage with Examples
 
+To get your started simply run `node index` to have a prompt ask you a serious of questions. At the end of it, it will generate an index.html file and save it in `./dist/` directory. You should be seeing a similar output as shown below:
+
+```bash
+❯ node index
+? Enter Manager's first name John
+? Enter Manager's email john@example.com
+? Enter Manager's office number. 1001
+? Would you like to add an Engineer or an Intern?
+ Choose CANCEL to EXIT. Engineer
+? Enter Engineer's first name Bob
+? Enter Engineer's email bob@example.com
+? Enter Engineer's github username. bob
+? Would you like to add more Employees? Yes
+? Would you like to add an Engineer or an Intern?
+ Choose CANCEL to EXIT. Intern
+? Enter Intern's first name Pete
+? Enter Intern's email pete@example.com
+? Enter Intern's school name. MIT
+? Would you like to add more Employees? No
+Operation canceled. You can try again by running 'node index'
+```
+
+### Demonstrational video
+
+![caption](./assets/profile-gen.mov)
+
 ## Tests
+
+All existing tests should pass when ran. Before running them make sure you have all dependencies installed.
+
+When running tests you should see a somewhat similar output:
+
+```bash
+❯ npm t
+
+> team-profile-generator@1.0.0 test
+> jest
+
+ PASS  test/Intern.test.js
+ PASS  test/Engineer.test.js
+ PASS  test/Employee.test.js
+ PASS  test/Manager.test.js
+
+Test Suites: 4 passed, 4 total
+Tests:       15 passed, 15 total
+Snapshots:   0 total
+Time:        1.063 s
+Ran all test suites.
+```
+
+If you plan on extending the functionality, I encourage you doing it in parallel by adding tests too.
 
 ## User Story
 

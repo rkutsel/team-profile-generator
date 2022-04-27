@@ -13,7 +13,6 @@ function addManager() {
   inquirer.prompt(questions.managerQuestions).then((answer) => {
     savedAnswers.push(answer.first_name, answer.email, answer.office_number);
     const newManager = new Manager(...savedAnswers);
-    console.log(newManager.id);
     fs.appendFileSync("./dist/index.html", template.panelManager(newManager));
     addEmployee();
   });
@@ -60,7 +59,6 @@ function addEmployee() {
 
 function addMoreEmployees() {
   inquirer.prompt(questions.generalQuestions[0]).then((answer) => {
-    console.log(answer);
     if (answer.more_employees) {
       addEmployee();
     } else {
