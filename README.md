@@ -51,7 +51,7 @@ To get your started simply run `node index` to have a prompt ask you a serious o
 Operation canceled. You can try again by running 'node index'
 ```
 
-### Demonstrational video
+### Demo
 
 ![caption](./assets/profile-gen.mov)
 
