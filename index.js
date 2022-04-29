@@ -91,7 +91,6 @@ function isFile(path = "./dist/index.html") {
 
 function init() {
 	isFile();
-	// appendToFile(template.head);
 	addManager();
 }
 
