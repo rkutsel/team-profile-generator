@@ -7,71 +7,64 @@ const questions = require("./src/questions");
 const template = require("./src/template");
 
 function addManager() {
-  fs.writeFileSync("./dist/index.html", template.head);
-  let savedAnswers = [];
+	let savedAnswers = [];
+	fs.writeFileSync("./dist/index.html", template.head);
 
-  inquirer.prompt(questions.managerQuestions).then((answer) => {
-    savedAnswers.push(answer.first_name, answer.email, answer.office_number);
-    const newManager = new Manager(...savedAnswers);
-    fs.appendFileSync("./dist/index.html", template.panelManager(newManager));
-    addEmployee();
-  });
+	inquirer.prompt(questions.managerQuestions).then((answer) => {
+		savedAnswers.push(answer.firstName, answer.email, answer.officeNumber);
+		const newManager = new Manager(...savedAnswers);
+		appendToFile(template.panelManager(newManager));
+		addEmployee();
+	});
 }
 
 function addEmployee() {
-  let savedAnswers = [];
+	let savedAnswers = [];
 
-  inquirer.prompt(questions.generalQuestions[1]).then((answer) => {
-    if (answer.employee === "Engineer") {
-      inquirer.prompt(questions.engineerQuestions).then((answer) => {
-        savedAnswers.push(
-          answer.first_name,
-          answer.email,
-          answer.engineer_github
-        );
+	inquirer.prompt(questions.generalQuestions[1]).then((answer) => {
+		if (answer.employee === "Engineer") {
+			inquirer.prompt(questions.engineerQuestions).then((answer) => {
+				savedAnswers.push(answer.firstName, answer.email, answer.githubUser);
 
-        const newEngineer = new Engineer(...savedAnswers);
-        fs.appendFileSync(
-          "./dist/index.html",
-          template.panelEngineer(newEngineer)
-        );
-        addMoreEmployees();
-      });
-    } else if (answer.employee === "Intern") {
-      inquirer.prompt(questions.internQuestions).then((answer) => {
-        savedAnswers.push(
-          answer.first_name,
-          answer.email,
-          answer.intern_school
-        );
-        const newIntern = new Intern(...savedAnswers);
-        fs.appendFileSync("./dist/index.html", template.panelIntern(newIntern));
-        addMoreEmployees();
-      });
-    } else {
-      fs.appendFileSync("./dist/index.html", template.tail);
-      console.log(
-        "Operation canceled. You can try again by running 'node index'"
-      );
-    }
-  });
+				const newEngineer = new Engineer(...savedAnswers);
+				appendToFile(template.panelEngineer(newEngineer));
+				addMoreEmployees();
+			});
+		} else if (answer.employee === "Intern") {
+			inquirer.prompt(questions.internQuestions).then((answer) => {
+				savedAnswers.push(answer.firstName, answer.email, answer.schoolName);
+				const newIntern = new Intern(...savedAnswers);
+				appendToFile(template.panelIntern(newIntern));
+				addMoreEmployees();
+			});
+		} else {
+			fs.appendFileSync(template.tail);
+			console.log(
+				"Operation canceled. You can try again by running 'node index'"
+			);
+		}
+	});
 }
 
 function addMoreEmployees() {
-  inquirer.prompt(questions.generalQuestions[0]).then((answer) => {
-    if (answer.more_employees) {
-      addEmployee();
-    } else {
-      fs.appendFileSync("./dist/index.html", template.tail);
-      console.log(
-        "Operation canceled. You can try again by running 'node index'"
-      );
-    }
-  });
+	inquirer.prompt(questions.generalQuestions[0]).then((answer) => {
+		if (answer.more_employees) {
+			addEmployee();
+		} else {
+			appendToFile(template.tail);
+			console.log(
+				"Operation canceled. You can try again by running 'node index'"
+			);
+		}
+	});
+}
+
+function appendToFile(role) {
+	fs.appendFileSync("./dist/index.html", role);
 }
 
 function init() {
-  addManager();
+	addManager();
 }
 
 init();
