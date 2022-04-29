@@ -29,13 +29,13 @@ const head = `<!DOCTYPE html>
     <div class="container mt-2" style="display: flex; justify-content: space-around; gap: 15px 15px; flex-flow: row wrap">`;
 
 let panelManager = (data) => {
-  let panel = `
+	let panel = `
   <div class="container mt-2">
   <div class="columns">
   <div class="panel p-centered">
     <div class="panel-header bg-success">
       <div class="panel-title">
-        <i class="icon icon-people"></i> ${data.name}
+        <i class="icon icon-people"></i> ${data.getName()}
         <i class="icon icon-downward float-right"></i> 
       </div>
     </div>
@@ -45,12 +45,12 @@ let panelManager = (data) => {
         <li class="divider" data-content="Employee Info"></li>
         <li class="menu-item"><b> Role: ${data.getRole()}</b></li>
         <li class="divider"></li>
-        <li class="menu-item">ID: ${data.id}</li>
+        <li class="menu-item">ID: ${data.getId()}</li>
         <li class="divider"></li>
         <li class="menu-item">
           <a href="mailto: ${
-            data.email
-          }"> <i class="icon icon-mail"></i> Email: ${data.email}</a>
+						data.email
+					}"> <i class="icon icon-mail"></i> Email: ${data.getEmail()}</a>
           <div class="menu-badge"></div>
         </li>
         <li class="divider"></li>
@@ -64,15 +64,15 @@ let panelManager = (data) => {
   </div>
   </div>
   </div>`;
-  return panel;
+	return panel;
 };
 
 let panelEngineer = (data) => {
-  let panel = `
+	let panel = `
   <div class="panel mt-2">
     <div class="panel-header bg-primary">
       <div class="panel-title">
-        <i class="icon icon-people"></i> ${data.name}
+        <i class="icon icon-people"></i> ${data.getName()}
         <i class="icon icon-upward float-right"></i> 
       </div>
     </div>
@@ -82,34 +82,34 @@ let panelEngineer = (data) => {
         <li class="divider" data-content="Employee Info"></li>
         <li class="menu-item"><b>Role: ${data.getRole()}</b></li>
         <li class="divider"></li>
-        <li class="menu-item">ID: ${data.id}</li>
+        <li class="menu-item">ID: ${data.getId()}</li>
         <li class="divider"></li>
         <li class="menu-item">
           <a href="mailto: ${
-            data.email
-          }"> <i class="icon icon-mail"></i> Email: ${data.email} </a>
+						data.email
+					}"> <i class="icon icon-mail"></i> Email: ${data.getEmail()} </a>
           <div class="menu-badge"></div>
         </li>
         <li class="divider"></li>
         <li class="menu-item">
           <a href="${data.getGithub()}" target="_blank"> <i class="icon icon-link"></i> Github: ${
-    data.github
-  }</a>
+		data.github
+	}</a>
         </li>
         <li class="divider"></li>
       </ul>
     </div>
     <div class="panel-footer"></div>
   </div>`;
-  return panel;
+	return panel;
 };
 
 let panelIntern = (data) => {
-  let panel = `
+	let panel = `
   <div class="panel mt-2">
     <div class="panel-header bg-warning">
       <div class="panel-title">
-        <i class="icon icon-people"></i> ${data.name}
+        <i class="icon icon-people"></i> ${data.getName()}
         <i class="icon icon-upward float-right"></i> 
       </div>
     </div>
@@ -119,12 +119,12 @@ let panelIntern = (data) => {
         <li class="divider" data-content="Employee Info"></li>
         <li class="menu-item"><b>Role: ${data.getRole()}</b></li>
         <li class="divider"></li>
-        <li class="menu-item">ID: ${data.id}</li>
+        <li class="menu-item">ID: ${data.getId()}</li>
         <li class="divider"></li>
         <li class="menu-item">
           <a href="mailto: ${
-            data.email
-          }"> <i class="icon icon-mail"></i> Email: ${data.email} </a>
+						data.email
+					}"> <i class="icon icon-mail"></i> Email: ${data.getEmail()} </a>
           <div class="menu-badge"></div>
         </li>
         <li class="divider"></li>
@@ -136,7 +136,7 @@ let panelIntern = (data) => {
     </div>
     <div class="panel-footer"></div>
   </div>`;
-  return panel;
+	return panel;
 };
 
 const tail = `</div>
