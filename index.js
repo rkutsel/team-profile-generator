@@ -10,8 +10,9 @@ function addManager() {
 	let savedAnswers = [];
 	fs.writeFileSync("./dist/index.html", template.head);
 
-	inquirer.prompt(questions.managerQuestions).then((answer) => {
-		savedAnswers.push(answer.firstName, answer.email, answer.officeNumber);
+	inquirer.prompt(questions.managerQuestions).then((answers) => {
+		const { firstName, email, officeNumber } = answers;
+		savedAnswers.push(firstName, email, officeNumber);
 		const newManager = new Manager(...savedAnswers);
 		appendToFile(template.panelManager(newManager));
 		addEmployee();
@@ -23,16 +24,18 @@ function addEmployee() {
 
 	inquirer.prompt(questions.generalQuestions[1]).then((answer) => {
 		if (answer.employee === "Engineer") {
-			inquirer.prompt(questions.engineerQuestions).then((answer) => {
-				savedAnswers.push(answer.firstName, answer.email, answer.githubUser);
+			inquirer.prompt(questions.engineerQuestions).then((answers) => {
+				const { firstName, email, githubUser } = answers;
+				savedAnswers.push(firstName, email, githubUser);
 
 				const newEngineer = new Engineer(...savedAnswers);
 				appendToFile(template.panelEngineer(newEngineer));
 				addMoreEmployees();
 			});
 		} else if (answer.employee === "Intern") {
-			inquirer.prompt(questions.internQuestions).then((answer) => {
-				savedAnswers.push(answer.firstName, answer.email, answer.schoolName);
+			inquirer.prompt(questions.internQuestions).then((answers) => {
+				const { firstName, email, schoolName } = answers;
+				savedAnswers.push(firstName, email, schoolName);
 				const newIntern = new Intern(...savedAnswers);
 				appendToFile(template.panelIntern(newIntern));
 				addMoreEmployees();
