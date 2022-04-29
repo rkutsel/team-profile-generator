@@ -7,37 +7,27 @@ const questions = require("./src/questions");
 const template = require("./src/template");
 
 function addManager() {
-	let savedAnswers = [];
-
 	inquirer.prompt(questions.managerQuestions).then((answers) => {
 		const { firstName, email, officeNumber } = answers;
-		savedAnswers.push(firstName, email, officeNumber);
-		const newManager = new Manager(...savedAnswers);
+		const newManager = new Manager(firstName, email, officeNumber);
 		appendToFile(template.panelManager(newManager));
 		addEmployee();
 	});
 }
 
 function addEngineer() {
-	let savedAnswers = [];
-
 	inquirer.prompt(questions.engineerQuestions).then((answers) => {
 		const { firstName, email, githubUser } = answers;
-		savedAnswers.push(firstName, email, githubUser);
-
-		const newEngineer = new Engineer(...savedAnswers);
+		const newEngineer = new Engineer(firstName, email, githubUser);
 		appendToFile(template.panelEngineer(newEngineer));
 		addMoreEmployees();
 	});
 }
 
 function addIntern() {
-	let savedAnswers = [];
-
 	inquirer.prompt(questions.internQuestions).then((answers) => {
 		const { firstName, email, schoolName } = answers;
-		savedAnswers.push(firstName, email, schoolName);
-		const newIntern = new Intern(...savedAnswers);
+		const newIntern = new Intern(firstName, email, schoolName);
 		appendToFile(template.panelIntern(newIntern));
 		addMoreEmployees();
 	});
