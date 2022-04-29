@@ -8,7 +8,6 @@ const template = require("./src/template");
 
 function addManager() {
 	let savedAnswers = [];
-	fs.writeFileSync("./dist/index.html", template.head);
 
 	inquirer.prompt(questions.managerQuestions).then((answers) => {
 		const { firstName, email, officeNumber } = answers;
@@ -19,29 +18,41 @@ function addManager() {
 	});
 }
 
-function addEmployee() {
+function addEngineer() {
 	let savedAnswers = [];
 
-	inquirer.prompt(questions.generalQuestions[1]).then((answer) => {
-		if (answer.employee === "Engineer") {
-			inquirer.prompt(questions.engineerQuestions).then((answers) => {
-				const { firstName, email, githubUser } = answers;
-				savedAnswers.push(firstName, email, githubUser);
+	inquirer.prompt(questions.engineerQuestions).then((answers) => {
+		const { firstName, email, githubUser } = answers;
+		savedAnswers.push(firstName, email, githubUser);
 
-				const newEngineer = new Engineer(...savedAnswers);
-				appendToFile(template.panelEngineer(newEngineer));
-				addMoreEmployees();
-			});
+		const newEngineer = new Engineer(...savedAnswers);
+		appendToFile(template.panelEngineer(newEngineer));
+		addMoreEmployees();
+	});
+}
+
+function addIntern() {
+	let savedAnswers = [];
+
+	inquirer.prompt(questions.internQuestions).then((answers) => {
+		const { firstName, email, schoolName } = answers;
+		savedAnswers.push(firstName, email, schoolName);
+		const newIntern = new Intern(...savedAnswers);
+		appendToFile(template.panelIntern(newIntern));
+		addMoreEmployees();
+	});
+}
+
+function addEmployee() {
+	inquirer.prompt(questions.generalQuestions[1]).then((answer) => {
+		if (answer.employee === "Manager") {
+			addManager();
+		} else if (answer.employee === "Engineer") {
+			addEngineer();
 		} else if (answer.employee === "Intern") {
-			inquirer.prompt(questions.internQuestions).then((answers) => {
-				const { firstName, email, schoolName } = answers;
-				savedAnswers.push(firstName, email, schoolName);
-				const newIntern = new Intern(...savedAnswers);
-				appendToFile(template.panelIntern(newIntern));
-				addMoreEmployees();
-			});
+			addIntern();
 		} else {
-			fs.appendFileSync(template.tail);
+			appendToFile(template.tail);
 			console.log(
 				"Operation canceled. You can try again by running 'node index'"
 			);
@@ -62,11 +73,25 @@ function addMoreEmployees() {
 	});
 }
 
-function appendToFile(role) {
-	fs.appendFileSync("./dist/index.html", role);
+function appendToFile(section) {
+	fs.appendFileSync("./dist/index.html", section);
+}
+
+function isFile(path = "./dist/index.html") {
+	try {
+		if (fs.existsSync(path)) {
+			fs.writeFileSync(path, template.head);
+		} else {
+			fs.appendFileSync(path, template.head);
+		}
+	} catch (err) {
+		console.error(err);
+	}
 }
 
 function init() {
+	isFile();
+	// appendToFile(template.head);
 	addManager();
 }
 

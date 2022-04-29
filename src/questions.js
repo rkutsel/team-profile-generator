@@ -9,7 +9,7 @@ const generalQuestions = [
 		name: "employee",
 		message:
 			"Would you like to add an Engineer or an Intern?\n Choose CANCEL to EXIT.",
-		choices: ["Engineer", "Intern", "CANCEL"],
+		choices: ["Manager", "Engineer", "Intern", "CANCEL"],
 	},
 ];
 
